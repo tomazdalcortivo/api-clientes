@@ -19,7 +19,6 @@ public class ClienteService {
 
     public void excluir(Long id) {
         Cliente cliente = this.buscarPorId(id);
-
         this.clienteRepository.delete(cliente);
     }
 
@@ -28,8 +27,7 @@ public class ClienteService {
     }
 
     public Cliente buscarPorId(Long id) {
-        return this.clienteRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuario não encontrado"));
+        return this.clienteRepository.findById(id).orElseThrow();
     }
 
     public Cliente atualizar(Cliente cliente, Long id) {
