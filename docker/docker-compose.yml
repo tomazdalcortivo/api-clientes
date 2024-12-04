@@ -13,6 +13,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=admin
       - RABBITMQ_DEFAULT_VHOST=/unfit-products-dev
       - RABBITMQ_DEFAULT_PERMISSION=./*.*.*
+
   oracle-db:
     container_name: oracle-free
     image: gvenzl/oracle-free
