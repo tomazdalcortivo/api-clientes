@@ -1,7 +1,10 @@
 package br.com.rd.api_cliente.controller;
 
+import br.com.rd.api_cliente.dto.ClienteDTO;
 import br.com.rd.api_cliente.entity.Cliente;
+import br.com.rd.api_cliente.rabbitmq.constants.RabbitmqConstantes;
 import br.com.rd.api_cliente.service.ClienteService;
+import br.com.rd.api_cliente.service.Rabbitmqservice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +18,20 @@ import java.util.List;
 public class ClienteController {
 
     private final ClienteService clienteService;
+    private final Rabbitmqservice rabbitmqservice;
 
     @PostMapping
-    public ResponseEntity<Cliente> salvar(@RequestBody Cliente cliente) {
-        Cliente clienteCriado = this.clienteService.salvar(cliente);
+    public ResponseEntity<Cliente> salvar(@RequestBody ClienteDTO clienteDTO) {
+        this.rabbitmqservice.enviarMensagem(RabbitmqConstantes.QUEUE_CLIENTS, clienteDTO);
+
+        Cliente clienteCriado = this.clienteService.salvar(clienteDTO.toCliente());
+
         return new ResponseEntity<>(clienteCriado, HttpStatus.OK);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable Long id) {
-        Cliente clienteAtualizado = this.clienteService.atualizar(cliente, id);
+    public ResponseEntity<Cliente> atualizar(@RequestBody ClienteDTO clienteDTO, @PathVariable Long id) {
+        Cliente clienteAtualizado = this.clienteService.atualizar(clienteDTO.toCliente(), id);
         return new ResponseEntity<>(clienteAtualizado, HttpStatus.OK);
     }
 
