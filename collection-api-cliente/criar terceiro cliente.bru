@@ -1,0 +1,23 @@
+meta {
+  name: criar terceiro cliente
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/clientes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Carlos Eduardo",
+    "cpf": "456.123.789-22",
+    "email": "carlos.eduardo@example.com",
+    "endereco": "Praça Central, 789, Centro, Belo Horizonte - MG",
+    "telefone": "(31) 98765-4321"
+  }
+  
+  
+}

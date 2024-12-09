@@ -1,0 +1,22 @@
+meta {
+  name: criar segundo cliente
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/clientes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Maria Oliveira",
+    "cpf": "987.654.321-00",
+    "email": "maria.oliveira@example.com",
+    "endereco": "Avenida Brasil, 456, Jardim Paulista, Curitiba - PR",
+    "telefone": "(41) 99876-5432"
+  }
+  
+}

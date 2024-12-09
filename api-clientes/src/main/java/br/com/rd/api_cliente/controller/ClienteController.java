@@ -31,7 +31,10 @@ public class ClienteController {
 
     @PutMapping("{id}")
     public ResponseEntity<Cliente> atualizar(@RequestBody ClienteDTO clienteDTO, @PathVariable Long id) {
+        this.rabbitmqservice.enviarMensagem(RabbitmqConstantes.QUEUE_CLIENTS, clienteDTO);
+
         Cliente clienteAtualizado = this.clienteService.atualizar(clienteDTO.toCliente(), id);
+
         return new ResponseEntity<>(clienteAtualizado, HttpStatus.OK);
     }
 

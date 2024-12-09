@@ -1,0 +1,26 @@
+meta {
+  name: atualizar
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/clientes/{{id}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Pedro Silva",
+    "cpf": "123.456.22-10",
+    "email": "pedro.silva@example.com",
+    "endereco": "Rua das Flores, 123, Centro, São Paulo - SP",
+    "telefone": "(11) 91234-5678"
+  }
+  
+}
+
+vars:pre-request {
+  id: 105
+}

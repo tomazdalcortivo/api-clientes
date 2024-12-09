@@ -1,0 +1,22 @@
+meta {
+  name: criar cliente
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/clientes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "João Silva",
+    "cpf": "123.456.789-10",
+    "email": "joao.silva@example.com",
+    "endereco": "Rua das Flores, 123, Centro, São Paulo - SP",
+    "telefone": "(11) 91234-5678"
+  }
+  
+}

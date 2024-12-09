@@ -1,0 +1,15 @@
+meta {
+  name: buscar por id
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/clientes/{{id}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  id: 1
+}
