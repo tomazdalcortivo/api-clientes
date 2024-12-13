@@ -26,6 +26,10 @@ public class ClienteService {
         return this.clienteRepository.findAll();
     }
 
+    public Cliente buscarPorCpf(String cpf) {
+        return this.clienteRepository.findClienteByCpf(cpf).orElseThrow();
+    }
+
     public Cliente buscarPorId(Long id) {
         return this.clienteRepository.findById(id).orElseThrow();
     }

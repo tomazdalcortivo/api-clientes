@@ -38,6 +38,12 @@ public class ClienteController {
         return new ResponseEntity<>(clienteAtualizado, HttpStatus.OK);
     }
 
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<Cliente> buscarCpf(@PathVariable String cpf) {
+        Cliente cliente = this.clienteService.buscarPorCpf(cpf);
+        return new ResponseEntity<>(cliente, HttpStatus.OK);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<Cliente> buscar(@PathVariable Long id) {
         Cliente cliente = this.clienteService.buscarPorId(id);
