@@ -2,7 +2,8 @@ package br.com.rd.api_cliente.controller;
 
 import br.com.rd.api_cliente.dto.ClienteDTO;
 import br.com.rd.api_cliente.entity.Cliente;
-import br.com.rd.api_cliente.rabbitmq.constants.RabbitmqConstantes;
+import br.com.rd.api_cliente.rabbitmq.RabbitmqConfig;
+import br.com.rd.api_cliente.rabbitmq.RabbitmqConnection;
 import br.com.rd.api_cliente.service.ClienteService;
 import br.com.rd.api_cliente.service.Rabbitmqservice;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<Cliente> salvar(@RequestBody ClienteDTO clienteDTO) {
-        this.rabbitmqservice.enviarMensagem(RabbitmqConstantes.QUEUE_CLIENTS, clienteDTO);
+        this.rabbitmqservice.enviarMensagem(RabbitmqConnection.QUEUE_CLIENTS, clienteDTO);
 
         Cliente clienteCriado = this.clienteService.salvar(clienteDTO.toCliente());
 
@@ -31,7 +32,7 @@ public class ClienteController {
 
     @PutMapping("{id}")
     public ResponseEntity<Cliente> atualizar(@RequestBody ClienteDTO clienteDTO, @PathVariable Long id) {
-        this.rabbitmqservice.enviarMensagem(RabbitmqConstantes.QUEUE_CLIENTS, clienteDTO);
+        this.rabbitmqservice.enviarMensagem(RabbitmqConnection.QUEUE_CLIENTS, clienteDTO);
 
         Cliente clienteAtualizado = this.clienteService.atualizar(clienteDTO.toCliente(), id);
 

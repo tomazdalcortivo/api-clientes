@@ -1,6 +1,5 @@
 package br.com.rd.api_cliente.rabbitmq;
 
-import br.com.rd.api_cliente.rabbitmq.constants.RabbitmqConstantes;
 import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
@@ -11,6 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class RabbitmqConnection {
 
+    public static final String EXCHANGE_NAME = "amq.direct";
+    public static final String QUEUE_CLIENTS = "cliente";
+
     private final AmqpAdmin amqpAdmin;
 
     public RabbitmqConnection(AmqpAdmin amqpAdmin) {
@@ -19,8 +21,8 @@ public class RabbitmqConnection {
 
     @PostConstruct
     private void initializeRabbitMQ() {
-        Queue clientQueue = createQueue(RabbitmqConstantes.QUEUE_CLIENTS);
-        DirectExchange exchange = createExchange(RabbitmqConstantes.EXCHANGE_NAME);
+        Queue clientQueue = createQueue(RabbitmqConnection.QUEUE_CLIENTS);
+        DirectExchange exchange = createExchange(RabbitmqConnection.EXCHANGE_NAME);
         Binding clientBinding = createBinding(clientQueue, exchange);
 
         registerComponents(clientQueue, exchange, clientBinding);
