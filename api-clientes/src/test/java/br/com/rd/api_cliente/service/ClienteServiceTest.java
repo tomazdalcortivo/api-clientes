@@ -88,6 +88,29 @@ class ClienteServiceTest {
     }
 
     @Test
+    void buscarPorCpfComCpfValido_RetornandoObjetoClinte(){
+        given(repository.findClienteByCpf(anyString())).willReturn(Optional.of(cliente));
+
+        Cliente clienteSalvo = service.buscarPorCpf(cliente.getCpf());
+
+        assertNotNull(clienteSalvo);
+        assertEquals(cliente.getId(), clienteSalvo.getId());
+        assertEquals(cliente.getNome(), clienteSalvo.getNome());
+        assertEquals(cliente.getCpf(), clienteSalvo.getCpf());
+        assertEquals(cliente.getEndereco(), clienteSalvo.getEndereco());
+        assertEquals(cliente.getTelefone(), clienteSalvo.getTelefone());
+        assertEquals(cliente.getEmail(), clienteSalvo.getEmail());
+
+    }
+
+    @Test
+    void buscarPorCpf_ComIdInexistente_LancaExcecaoEntityNotFoundException() {
+        given(repository.findClienteByCpf(anyString())).willThrow(EntityNotFoundException.class);
+
+        assertThrows(EntityNotFoundException.class, () -> service.buscarPorCpf("999.999.999-99"));
+    }
+
+    @Test
     void excluir_ComIdValido_Void() {
         given(repository.findById(anyLong())).willReturn(Optional.of(cliente));
         willDoNothing().given(repository).delete(cliente);
